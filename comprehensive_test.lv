@@ -1,0 +1,141 @@
+// LUV Comprehensive Feature Test File
+
+@luv mm on
+![recursion_limit(10000)]
+![threading_mode(spark)]
+
+module MasterTest
+
+use { print, log } from System::IO
+use Networking::Http from "https://lib.luv/http"
+
+// 1. Advanced Types
+mut a: i8 = 10
+mut b: i16 = 200
+mut c: i32 = 30000
+mut d: i64 = 4000000000
+mut e: i128 = 1000000000000000000000
+mut f: i256 = 100000000000000000000000000000000000000
+mut g: f32 = 3.14
+mut h: f64 = 3.14159265
+mut i: bool = true
+mut j: byte = 0xFF
+mut k: bits = 0b10101010
+
+// Arbitrary Precision
+mut big: tnt = 10 ^ 1000
+mut huge: number = big * big
+
+// 2. Dynamic Modifier
+dyn dynamic_val = 10
+dynamic_val = "now a string"
+
+// 3. Memory Management Identifiers
+ptr ptr_val = &a
+own owned_val = Box::new(10)
+ref shared_val = owned_val
+
+// 4. Casting
+mut casted = a as i64 + b as i64
+
+// 5. Inline Assembly for Syscalls
+fn exit(code: i32) {
+    asm {
+        mov eax, 60
+        mov edi, [code]
+        syscall
+    }
+}
+
+// 6. Multithreading and Chains
+@build/luv par {
+    log("Task 1")
+    log("Task 2")
+}
+
+fn process_data(data) -> i32 {
+    return data * 2
+}
+
+fn save_data(data) {
+    print(&"Saved: {data}")
+}
+
+// Thread chaining
+fn start_pipeline() {
+    10 ~> process_data ~> save_data
+}
+
+// 7. Parallel Loops and Primitives
+fn parallel_work() {
+    mut mutex = Mutex::new()
+    mut counter = 0
+    
+    parfor i in 0..1000 {
+        atomizer {
+            counter += 1
+        }
+        
+        mutex.lock()
+        print(&"Processing {i}")
+        mutex.unlock()
+    }
+    
+    mut sum = reduce(0..100, (acc, val) => acc + val)
+}
+
+// 8. Ternary and OOP
+fn check(val: i32) -> string {
+    return val > 10 ? "greater" : "smaller"
+}
+
+class Base extends Object {
+    mut id: i32
+    init(id: i32) {
+        self.id = id
+    }
+}
+
+pub dyn class Advanced extends Base {
+    virtual fn speak() {
+        print("I am dynamic and advanced")
+    }
+}
+
+impl Advanced {
+    override speak() {
+        super.speak()
+        print("And overridden")
+    }
+    
+    deinit {
+        print("Cleaning up")
+    }
+}
+
+// 9. Match and Switch
+fn match_test(x) {
+    match x {
+        1 | 2 => print("One or Two"),
+        3..10 => print("Small range"),
+        _     => print("Other")
+    }
+    
+    switch x {
+        1: print("One")
+        2: print("Two")
+        else: print("Default")
+    }
+}
+
+// 10. Compile-time
+comptime {
+    const PI = 3.14159
+}
+
+fn main() {
+    start_pipeline()
+    parallel_work()
+    Advanced::new(1).speak()
+    log("LUV comprehensive test finished.")
+}
