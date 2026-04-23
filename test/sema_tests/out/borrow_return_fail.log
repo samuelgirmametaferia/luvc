@@ -1,0 +1,17 @@
+[Semantic Error at 5:5] Returning borrow of local variable 'x' would create a dangling reference.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:1] ExprStmt
+    [1:1] Node type 65
+  [1:9] Func: f (pub: 0, static: 0, virt: 0, over: 0)
+    [2:5] Block (comptime: 0)
+      [3:3] Block (comptime: 0)
+        [4:5] VarDecl: x (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+          [4:16] Binary: =
+            [4:12] Identifier: i32
+            [4:18] Literal: 1
+        [5:5] Return
+          [5:12] Node type 47
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

@@ -1,0 +1,74 @@
+module Lexer
+
+use System::IO
+use { is_alnum, is_alpha, is_digit } from System::Char
+
+pub class Lexer {
+    mut source:  string
+    mut current: i64
+    mut start:   i64
+    mut line:    i32
+    mut col:     i32
+}
+
+impl Lexer {
+    pub fn new(src: string) -> Lexer {
+        return Lexer(
+            source: src, 
+            current: 0, 
+            start: 0, 
+            line: 1, 
+            col: 0
+        )
+    }
+
+    fn at_end(self) -> bool {
+        return self.current >= self.source.len()
+    }
+
+    fn advance(mut self) -> char {
+        mut c = self.source[self.current]
+        self.current += 1
+        self.col += 1
+        return c
+    }
+
+    fn peek(self) -> char {
+        if self.at_end() { return '\0' }
+        return self.source[self.current]
+    }
+
+    pub fn next_token(mut self) -> Token {
+        self.skip_trivia()
+        self.start = self.current
+        mut start_col = self.col
+
+        if self.at_end() {
+            return Token::new(TOKEN_EOF, "", self.line, start_col)
+        }
+
+        mut c = self.advance()
+
+        if is_alpha(c) || c == '_' { return self.scan_identifier(start_col) }
+        if is_digit(c) { return self.scan_number(start_col) }
+
+        return self.scan_symbol(c, start_col)
+    }
+
+    pri fn scan_identifier(mut self, sc: i32) -> Token {
+        while is_alnum(self.peek()) || self.peek() == '_' {
+            self.advance()
+        }
+        
+        mut text = self.source.slice(self.start, self.current)
+        
+        // Overloading match or using a map would go here
+        return match text {
+            "class"   => Token::new(TOKEN_CLASS, text, self.line, sc),
+            "impl"    => Token::new(TOKEN_IMPL, text, self.line, sc),
+            "fn"      => Token::new(TOKEN_FN, text, self.line, sc),
+            "self"    => Token::new(TOKEN_SELF, text, self.line, sc),
+            _         => Token::new(TOKEN_IDENTIFIER, text, self.line, sc)
+        }
+    }
+}

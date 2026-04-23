@@ -1,0 +1,4 @@
+inc(mut a) { a = a + 1; }
+x;
+x = 3;
+inc(x);

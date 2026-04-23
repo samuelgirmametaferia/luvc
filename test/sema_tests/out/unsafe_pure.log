@@ -1,0 +1,9 @@
+[Semantic Warning at 1:13] Function declared 'unsafe pure': 'pure' ignored; function treated as unsafe.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:13] Func: p (pub: 0, static: 0, virt: 0, over: 0)
+    [1:20] Block (comptime: 0)
+      [1:22] Node type 31
+
+[36mRunning Semantic Analysis...[0m
+[32mSemantic Analysis Successful![0m

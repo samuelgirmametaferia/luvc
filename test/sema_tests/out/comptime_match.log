@@ -1,0 +1,22 @@
+[Semantic Error at 3:3] Statement not supported in comptime execution.
+[Semantic Error at 1:10] Comptime evaluation failed.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Block (comptime: 1)
+    [2:3] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [2:7] Literal: 2
+    [3:3] Match
+      [3:9] Identifier: x
+      [4:5] MatchArm
+        [4:5] Literal: 1
+        [4:10] Block (comptime: 0)
+          [4:12] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+            [4:16] Literal: 10
+      [5:5] MatchArm
+        [5:5] Literal: 2
+        [5:10] Block (comptime: 0)
+          [5:12] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+            [5:16] Literal: 20
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

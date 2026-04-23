@@ -1,0 +1,150 @@
+/*a = 10 //int default
+b = "hello"//string
+c = 3.14 //float 
+d = 100000000000000 // big num
+
+mut ab = 10 //mutable int
+mut cd = "hi" //mutable string
+mut efg = 3.14 // mutable float 
+mut fg = 1000000000000000000 //mutable big int
+
+a = ["a","b",nen]
+b[i64] = [0:50]
+c[50] = [0:50]
+d[string:50] = ["OK":50]
+
+e(string, i32, i32) = ("hi", nen, nen)
+
+
+// 1. Control Flow & Boolean Algebra
+if (a == 10 && b != 20) {
+    a = 5
+} ef (c < 5 || !d) {
+    b = 10
+} else {
+    c = 0
+}
+
+// 2. Loops (Standard and Range)
+while (i >= 0) {
+    i = i - 1
+}
+
+for i in 0...100 {
+    print(i)
+}
+
+for (mut j = 0; j <= 10; j = j + 1) {
+    print(j)
+}
+
+// 3. Match and Switch
+match status {
+    "ok" => 1,
+    "error" => 0,
+    _ => nen
+}
+
+switch x {
+    case 1: print("one")
+
+}
+
+// 1. Character Literals
+'a' 
+'\n' 
+'\''
+
+// 2. Standard Strings
+"Hello, World!"
+"String with \t tabs and \n newlines"
+
+// 3. Raw Strings (Backslashes are literals)
+r"C:\Users\Name\Documents"
+r"No \escape sequences here"
+
+// 4. Interpolated Strings
+&"{user_name} is logged in"
+&"Total: {price + tax}"
+
+// 5. Multi-line Triple Quotes
+"""
+This is a 
+triple quoted
+multi-line string
+"""
+
+// 6. Multi-line Backticks
+`
+Another way to write
+multi-line strings
+using backticks
+`*/
+
+// 1. Module and Imports
+module MySuperLib
+
+use Math::Constants
+use { print, log } from System::IO
+use Networking::Http from "https://lib.luv/http"
+
+// 2. Function Declarations (Optional 'fn')
+
+// Declaration with 'fn' and explicit return
+fn add(a, b) -> i32 {
+    return a + b
+}
+
+// Declaration without 'fn' (Implicit return of last expression)
+multiply(x, y) -> f64 {
+    x * y
+}
+
+// Function with no return type and block
+say_hello() {
+    print("Hello!")
+}
+
+// 3. Complex Logic & Ranges
+check_range(val) {
+    if (val in 0...100 && val != 50) {
+        return true
+    } ef (val == 50 || !true) {
+        return false
+    } else {
+        return false
+    }
+}
+
+// 4. Scoping and Calls
+main() {
+    mut result = Math::Constants::PI * 2.0
+    
+    // Function call vs Declaration check
+    // Parser will see this as a call because no '{' or '->' follows immediately
+    say_hello()
+    
+    mut list = [1, 2, 3]
+    
+    // 5. Match and Arrows
+    match status {
+        "ok"    => 1,
+        "error" => 0,
+        _       => -1
+    }
+}
+
+// 6. String Interpolation & Multi-line
+mut name = "Gemini"
+mut greeting = &"Hello, {name}! Your score is {10 + 5}."
+
+mut docs = """
+This is a multi-line docstring
+spanning multiple lines.
+"""
+
+// 7. Scoped Path usage
+System::IO::log("Test complete.")
+
+
+

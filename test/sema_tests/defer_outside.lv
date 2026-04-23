@@ -1,0 +1,5 @@
+defer print("This should be invalid here")
+
+fn foo() {
+    defer print("Inside function")
+}

@@ -1,0 +1,8 @@
+[Semantic Error at 1:10] Abstract function must not have implementation.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Func: foo (pub: 0, static: 0, virt: 0, over: 0)
+    [1:19] Block (comptime: 0)
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

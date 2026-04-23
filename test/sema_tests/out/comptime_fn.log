@@ -1,0 +1,25 @@
+[Semantic Error at 2:12] Statement not supported in comptime execution.
+[Semantic Error at 1:10] Comptime evaluation failed.
+[Semantic Error at 2:12] Statement not allowed in comptime block.
+[Semantic Error at 3:12] Identifier not allowed in comptime context.
+[Semantic Error at 3:14] Binary expression contains non-comptime operand.
+[Semantic Error at 3:5] Return expression is not compile-time.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Block (comptime: 1)
+    [2:12] Func: add (pub: 0, static: 0, virt: 0, over: 0)
+      [2:19] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [2:22] VarDecl: b (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [2:25] Block (comptime: 0)
+        [3:5] Return
+          [3:14] Binary: +
+            [3:12] Identifier: a
+            [3:16] Identifier: b
+    [5:3] VarDecl: result (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [5:15] Call
+        [5:12] Identifier: add
+        [5:16] Literal: 2
+        [5:19] Literal: 3
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

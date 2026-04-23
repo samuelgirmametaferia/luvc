@@ -1,0 +1,13 @@
+[Semantic Error at 2:10] Pure function cannot perform I/O by calling intrinsic 'print'. Move I/O to an impure function or opt out using 'unsafe pure'.
+[Suggestion at 2:10] Fix-it: move I/O to non-pure function or use 'unsafe pure' to opt out.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:6] Func: foo (pub: 0, static: 0, virt: 0, over: 0)
+    [1:15] Block (comptime: 0)
+      [2:10] ExprStmt
+        [2:10] Call
+          [2:5] Identifier: print
+          [2:11] Literal: "hello"
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

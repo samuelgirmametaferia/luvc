@@ -1,0 +1,18 @@
+[Semantic Error at 2:4] Cannot pass an expression to a 'mut' parameter; must be a variable.
+[Suggestion at 2:4] Fix-it: store the expression in a local variable and pass that variable (e.g., let tmp = <expr>; fn(tmp)).
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [322660160:32764] Func: inc (pub: 0, static: 0, virt: 0, over: 0)
+    [1:9] VarDecl: a (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [1:12] Block (comptime: 0)
+      [1:14] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        [1:20] Binary: +
+          [1:18] Identifier: a
+          [1:22] Literal: 1
+  [2:4] ExprStmt
+    [2:4] Call
+      [2:1] Identifier: inc
+      [2:5] Literal: 1
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

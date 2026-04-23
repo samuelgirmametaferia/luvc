@@ -1,0 +1,7 @@
+@luv mm on
+f() {
+  {
+    mut x: i32 = 1;
+    return borrow x;
+  }
+}

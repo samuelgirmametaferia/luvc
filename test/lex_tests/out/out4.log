@@ -1,0 +1,259 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:8] Module: Lexer
+  [3:1] Import
+    Path: System::IO
+  [4:1] Import
+    [4:7] Identifier: is_alnum
+    [4:17] Identifier: is_alpha
+    [4:27] Identifier: is_digit
+    From:
+      [4:51] MemberAccess: Char
+        [4:43] Identifier: System
+  [6:1] Class: Lexer (dyn: 0)
+    [6:17] Block (comptime: 0)
+      [7:5] VarDecl: source (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [7:18] Identifier: string
+      [8:5] VarDecl: current (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [8:18] Identifier: i64
+      [9:5] VarDecl: start (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [9:18] Identifier: i64
+      [10:5] VarDecl: line (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [10:18] Identifier: i32
+      [11:5] VarDecl: col (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [11:18] Identifier: i32
+  [14:1] Impl: Lexer
+    [14:12] Block (comptime: 0)
+      [15:9] Func: new (pub: 1, static: 0, virt: 0, over: 0)
+        [15:16] VarDecl: src (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+          [15:21] Identifier: string
+        Returns:
+          [15:32] Identifier: Lexer
+        [15:38] Block (comptime: 0)
+          [16:9] Return
+            [16:21] Call
+              [16:16] Identifier: Lexer
+              [17:13] Binary: :
+                [17:13] Identifier: source
+                [17:21] Identifier: src
+              [18:13] Binary: :
+                [18:13] Identifier: current
+                [18:22] Literal: 0
+              [19:13] Binary: :
+                [19:13] Identifier: start
+                [19:20] Literal: 0
+              [20:13] Binary: :
+                [20:13] Identifier: line
+                [20:19] Literal: 1
+              [21:13] Binary: :
+                [21:13] Identifier: col
+                [21:18] Literal: 0
+      [25:5] Func: at_end (pub: 0, static: 0, virt: 0, over: 0)
+        [25:15] VarDecl: self (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        Returns:
+          [25:24] Identifier: bool
+        [25:29] Block (comptime: 0)
+          [26:9] Return
+            [26:29] Binary: >=
+              [26:21] MemberAccess: current
+                [26:16] Identifier: self
+              [26:47] Call
+                [26:44] MemberAccess: len
+                  [26:37] MemberAccess: source
+                    [26:32] Identifier: self
+      [29:5] Func: advance (pub: 0, static: 0, virt: 0, over: 0)
+        [29:20] VarDecl: self (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        Returns:
+          [29:29] Identifier: char
+        [29:34] Block (comptime: 0)
+          [30:9] VarDecl: c (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+            [30:28] IndexAccess
+              [30:22] MemberAccess: source
+                [30:17] Identifier: self
+              [30:34] MemberAccess: current
+                [30:29] Identifier: self
+          [31:22] ExprStmt
+            [31:22] Binary: +=
+              [31:14] MemberAccess: current
+                [31:9] Identifier: self
+              [31:25] Literal: 1
+          [32:18] ExprStmt
+            [32:18] Binary: +=
+              [32:14] MemberAccess: col
+                [32:9] Identifier: self
+              [32:21] Literal: 1
+          [33:9] Return
+            [33:16] Identifier: c
+      [36:5] Func: peek (pub: 0, static: 0, virt: 0, over: 0)
+        [36:13] VarDecl: self (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        Returns:
+          [36:22] Identifier: char
+        [36:27] Block (comptime: 0)
+          [37:9] If
+            [37:23] Call
+              [37:17] MemberAccess: at_end
+                [37:12] Identifier: self
+            [37:26] Block (comptime: 0)
+              [37:28] Return
+                [37:35] Literal: '\0'
+          [38:9] Return
+            [38:27] IndexAccess
+              [38:21] MemberAccess: source
+                [38:16] Identifier: self
+              [38:33] MemberAccess: current
+                [38:28] Identifier: self
+      [41:9] Func: next_token (pub: 1, static: 0, virt: 0, over: 0)
+        [41:27] VarDecl: self (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        Returns:
+          [41:36] Identifier: Token
+        [41:42] Block (comptime: 0)
+          [42:25] ExprStmt
+            [42:25] Call
+              [42:14] MemberAccess: skip_trivia
+                [42:9] Identifier: self
+          [43:20] ExprStmt
+            [43:20] Binary: =
+              [43:14] MemberAccess: start
+                [43:9] Identifier: self
+              [43:27] MemberAccess: current
+                [43:22] Identifier: self
+          [44:9] VarDecl: start_col (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+            [44:30] MemberAccess: col
+              [44:25] Identifier: self
+          [46:9] If
+            [46:23] Call
+              [46:17] MemberAccess: at_end
+                [46:12] Identifier: self
+            [46:26] Block (comptime: 0)
+              [47:13] Return
+                [47:30] Call
+                  [47:27] MemberAccess: new
+                    [47:20] Identifier: Token
+                  [47:31] Identifier: TOKEN_EOF
+                  [47:42] Literal: ""
+                  [47:51] MemberAccess: line
+                    [47:46] Identifier: self
+                  [47:57] Identifier: start_col
+          [50:9] VarDecl: c (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+            [50:29] Call
+              [50:22] MemberAccess: advance
+                [50:17] Identifier: self
+          [52:9] If
+            [52:24] Binary: ||
+              [52:20] Call
+                [52:12] Identifier: is_alpha
+                [52:21] Identifier: c
+              [52:29] Binary: ==
+                [52:27] Identifier: c
+                [52:32] Literal: '_'
+            [52:36] Block (comptime: 0)
+              [52:38] Return
+                [52:65] Call
+                  [52:50] MemberAccess: scan_identifier
+                    [52:45] Identifier: self
+                  [52:66] Identifier: start_col
+          [53:9] If
+            [53:20] Call
+              [53:12] Identifier: is_digit
+              [53:21] Identifier: c
+            [53:24] Block (comptime: 0)
+              [53:26] Return
+                [53:49] Call
+                  [53:38] MemberAccess: scan_number
+                    [53:33] Identifier: self
+                  [53:50] Identifier: start_col
+          [55:9] Return
+            [55:32] Call
+              [55:21] MemberAccess: scan_symbol
+                [55:16] Identifier: self
+              [55:33] Identifier: c
+              [55:36] Identifier: start_col
+      [58:9] Func: scan_identifier (pub: 1, static: 0, virt: 0, over: 0)
+        [58:32] VarDecl: self (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [58:38] VarDecl: sc (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+          [58:42] Identifier: i32
+        Returns:
+          [58:50] Identifier: Token
+        [58:56] Block (comptime: 0)
+          [59:9] While
+            [59:37] Binary: ||
+              [59:23] Call
+                [59:15] Identifier: is_alnum
+                [59:33] Call
+                  [59:29] MemberAccess: peek
+                    [59:24] Identifier: self
+              [59:52] Binary: ==
+                [59:49] Call
+                  [59:45] MemberAccess: peek
+                    [59:40] Identifier: self
+                [59:55] Literal: '_'
+            [59:59] Block (comptime: 0)
+              [60:25] ExprStmt
+                [60:25] Call
+                  [60:18] MemberAccess: advance
+                    [60:13] Identifier: self
+          [63:9] VarDecl: text (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+            [63:37] Call
+              [63:32] MemberAccess: slice
+                [63:25] MemberAccess: source
+                  [63:20] Identifier: self
+              [63:43] MemberAccess: start
+                [63:38] Identifier: self
+              [63:55] MemberAccess: current
+                [63:50] Identifier: self
+          [66:9] Return
+            [66:16] Match
+              [66:22] Identifier: text
+              [67:13] MatchArm
+                [67:13] Literal: "class"
+                [67:36] Call
+                  [67:33] MemberAccess: new
+                    [67:26] Identifier: Token
+                  [67:37] Identifier: TOKEN_CLASS
+                  [67:50] Identifier: text
+                  [67:61] MemberAccess: line
+                    [67:56] Identifier: self
+                  [67:67] Identifier: sc
+              [68:13] MatchArm
+                [68:13] Literal: "impl"
+                [68:36] Call
+                  [68:33] MemberAccess: new
+                    [68:26] Identifier: Token
+                  [68:37] Identifier: TOKEN_IMPL
+                  [68:49] Identifier: text
+                  [68:60] MemberAccess: line
+                    [68:55] Identifier: self
+                  [68:66] Identifier: sc
+              [69:13] MatchArm
+                [69:13] Literal: "fn"
+                [69:36] Call
+                  [69:33] MemberAccess: new
+                    [69:26] Identifier: Token
+                  [69:37] Identifier: TOKEN_FN
+                  [69:47] Identifier: text
+                  [69:58] MemberAccess: line
+                    [69:53] Identifier: self
+                  [69:64] Identifier: sc
+              [70:13] MatchArm
+                [70:13] Literal: "self"
+                [70:36] Call
+                  [70:33] MemberAccess: new
+                    [70:26] Identifier: Token
+                  [70:37] Identifier: TOKEN_SELF
+                  [70:49] Identifier: text
+                  [70:60] MemberAccess: line
+                    [70:55] Identifier: self
+                  [70:66] Identifier: sc
+              [71:13] MatchArm
+                [71:13] Identifier: _
+                [71:36] Call
+                  [71:33] MemberAccess: new
+                    [71:26] Identifier: Token
+                  [71:37] Identifier: TOKEN_IDENTIFIER
+                  [71:55] Identifier: text
+                  [71:66] MemberAccess: line
+                    [71:61] Identifier: self
+                  [71:72] Identifier: sc
+
+[36mRunning Semantic Analysis...[0m
+[32mSemantic Analysis Successful![0m

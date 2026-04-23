@@ -1,0 +1,8 @@
+[Semantic Error at 1:16] Function modifiers conflict: 'comptime' cannot be combined with 'async'.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:16] Func: p (pub: 0, static: 0, virt: 0, over: 0)
+    [1:23] Block (comptime: 0)
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

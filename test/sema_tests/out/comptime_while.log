@@ -1,0 +1,21 @@
+[Semantic Error at 3:12] Unsupported binary operands in comptime evaluation.
+[Semantic Error at 3:3] While condition must be compile-time boolean for evaluation.
+[Semantic Error at 1:10] Comptime evaluation failed.
+[Semantic Error at 3:3] While condition must be boolean.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Block (comptime: 1)
+    [2:3] VarDecl: i (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [2:7] Literal: 0
+    [3:3] While
+      [3:12] Binary: <
+        [3:10] Identifier: i
+        [3:14] Literal: 5
+      [3:17] Block (comptime: 0)
+        [4:5] VarDecl: i (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+          [4:11] Binary: +
+            [4:9] Identifier: i
+            [4:13] Literal: 1
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

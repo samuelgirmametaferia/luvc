@@ -1,0 +1,5 @@
+comptime {
+    x;
+    x = 1;
+    print("hello");
+}

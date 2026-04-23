@@ -1,0 +1,5 @@
+fn foo(x: bool) {
+    guard x else {
+        print("This doesn't return")
+    }
+}

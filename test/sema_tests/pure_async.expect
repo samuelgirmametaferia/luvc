@@ -1,0 +1,2 @@
+[Semantic Error
+Pure async functions cannot contain 'await'.

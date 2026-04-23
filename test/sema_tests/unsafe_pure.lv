@@ -1,0 +1,1 @@
+unsafe pure fn p() { unsafe { x; x = 1; } }

@@ -1,0 +1,4 @@
+pure fn foo() {
+    let x = abs(3);
+    let s = ToString(x);
+}

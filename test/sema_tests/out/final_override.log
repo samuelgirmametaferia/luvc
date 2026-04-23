@@ -1,0 +1,17 @@
+[Semantic Error at 6:14] Cannot override method marked 'final'.
+[Suggestion at 6:14] Fix-it: remove 'override' or remove 'final' from the base method.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:1] Class: Base (dyn: 0)
+    [1:12] Block (comptime: 0)
+      [2:11] Func: foo (pub: 0, static: 0, virt: 0, over: 0)
+        [2:20] Block (comptime: 0)
+  [5:1] Class: Derived (dyn: 0)
+    Extends:
+      [5:23] Identifier: Base
+    [5:28] Block (comptime: 0)
+      [6:14] Func: foo (pub: 0, static: 0, virt: 0, over: 1)
+        [6:23] Block (comptime: 0)
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

@@ -1,0 +1,19 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [-1431370864:32766] Func: inc (pub: 0, static: 0, virt: 0, over: 0)
+    [1:9] VarDecl: a (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [1:12] Block (comptime: 0)
+      [1:14] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        [1:20] Binary: +
+          [1:18] Identifier: a
+          [1:22] Literal: 1
+  [2:1] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+  [3:1] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [3:5] Literal: 3
+  [4:4] ExprStmt
+    [4:4] Call
+      [4:1] Identifier: inc
+      [4:5] Identifier: x
+
+[36mRunning Semantic Analysis...[0m
+[32mSemantic Analysis Successful![0m

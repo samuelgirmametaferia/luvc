@@ -1,0 +1,3 @@
+f(mut x: i32) {
+  return borrow x;
+}

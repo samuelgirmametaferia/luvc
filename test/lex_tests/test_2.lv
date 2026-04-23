@@ -1,0 +1,252 @@
+module Lexer
+
+use { is_alnum, is_alpha, is_digit } from System::Char
+use System::IO
+
+/* =========================================================
+   LEXER CLASS
+   ========================================================= */
+
+pub class Lexer {
+    mut source:  string
+    mut current: i64
+    mut start:   i64
+    mut line:    i32
+    mut col:     i32
+}
+
+impl Lexer {
+    pub fn new(src: string) -> Lexer {
+        return Lexer(
+            source: src,
+            current: 0,
+            start: 0,
+            line: 1,
+            col: 0
+        )
+    }
+
+    // --- Safety Helpers ---
+
+    fn at_end(self) -> bool {
+        return self.current >= self.source.len()
+    }
+
+    fn peek(self) -> char {
+        if self.at_end() { return '\0' }
+        return self.source[self.current]
+    }
+
+    fn peek_next(self) -> char {
+        if self.current + 1 >= self.source.len() { return '\0' }
+        return self.source[self.current + 1]
+    }
+
+    fn advance(mut self) -> char {
+        mut c = self.source[self.current]
+        self.current += 1
+        self.col += 1
+        return c
+    }
+
+    fn match_char(mut self, expected: char) -> bool {
+        if self.at_end() || self.source[self.current] != expected {
+            return false
+        }
+        self.current += 1
+        self.col += 1
+        return true
+    }
+
+    // --- Trivia & Comments ---
+
+    fn skip_trivia(mut self) {
+        while !self.at_end() {
+            mut c = self.peek()
+            match c {
+                ' ' | '\t' | '\r' => { self.advance() }
+                '\n' => {
+                    self.advance()
+                    self.line += 1
+                    self.col = 0
+                }
+                '/' => {
+                    if self.peek_next() == '/' {
+                        while !self.at_end() && self.peek() != '\n' { self.advance() }
+                    } ef self.peek_next() == '*' {
+                        self.scan_block_comment()
+                    } else {
+                        return
+                    }
+                }
+                _ => return
+            }
+        }
+    }
+
+    fn scan_block_comment(mut self) {
+        self.advance() // /
+        self.advance() // *
+        mut depth = 1
+        while depth > 0 && !self.at_end() {
+            if self.peek() == '/' && self.peek_next() == '*' {
+                self.advance() self.advance()
+                depth += 1
+            } ef self.peek() == '*' && self.peek_next() == '/' {
+                self.advance() self.advance()
+                depth -= 1
+            } else {
+                if self.peek() == '\n' { self.line += 1 self.col = 0 }
+                self.advance()
+            }
+        }
+    }
+
+    // --- Scanners ---
+
+    fn scan_identifier(mut self, sc: i32) -> Token {
+        while is_alnum(self.peek()) || self.peek() == '_' {
+            self.advance()
+        }
+        
+        mut text = self.source.slice(self.start, self.current)
+        
+        // Keyword Mapping
+        return match text {
+            "mut"      => Token::new(TOKEN_MUT, text, self.line, sc),
+            "if"       => Token::new(TOKEN_IF, text, self.line, sc),
+            "ef"       => Token::new(TOKEN_EF, text, self.line, sc),
+            "else"     => Token::new(TOKEN_ELSE, text, self.line, sc),
+            "while"    => Token::new(TOKEN_WHILE, text, self.line, sc),
+            "for"      => Token::new(TOKEN_FOR, text, self.line, sc),
+            "in"       => Token::new(TOKEN_IN, text, self.line, sc),
+            "match"    => Token::new(TOKEN_MATCH, text, self.line, sc),
+            "fn"       => Token::new(TOKEN_FN, text, self.line, sc),
+            "class"    => Token::new(TOKEN_CLASS, text, self.line, sc),
+            "impl"     => Token::new(TOKEN_IMPL, text, self.line, sc),
+            "self"     => Token::new(TOKEN_SELF, text, self.line, sc),
+            "pub" | "pb" => Token::new(TOKEN_PUB, text, self.line, sc),
+            "pri"      => Token::new(TOKEN_PRI, text, self.line, sc),
+            "return"   => Token::new(TOKEN_RETURN, text, self.line, sc),
+            "module"   => Token::new(TOKEN_MODULE, text, self.line, sc),
+            "use"      => Token::new(TOKEN_USE, text, self.line, sc),
+            "from"     => Token::new(TOKEN_FROM, text, self.line, sc),
+            _          => Token::new(TOKEN_IDENTIFIER, text, self.line, sc)
+        }
+    }
+
+    fn scan_number(mut self, sc: i32) -> Token {
+        // Binary support
+        if self.source[self.start] == '0' && (self.peek() == 'b' || self.peek() == 'B') {
+            self.advance()
+            while self.peek() == '0' || self.peek() == '1' { self.advance() }
+            return Token::new(TOKEN_VARDATA, self.source.slice(self.start, self.current), self.line, sc)
+        }
+
+        while is_digit(self.peek()) { self.advance() }
+        
+        // Decimals
+        if self.peek() == '.' && is_digit(self.peek_next()) {
+            self.advance()
+            while is_digit(self.peek()) { self.advance() }
+        }
+        
+        return Token::new(TOKEN_VARDATA, self.source.slice(self.start, self.current), self.line, sc)
+    }
+
+    fn scan_string_all(mut self, quote: char, is_raw: bool, is_interp: bool, sc: i32) -> Token {
+        mut is_triple = false
+        if quote == '"' && self.peek() == '"' && self.peek_next() == '"' {
+            is_triple = true
+            self.advance() self.advance() self.advance()
+        }
+
+        while !self.at_end() {
+            if is_triple {
+                if self.peek() == '"' && self.peek_next() == '"' && self.source[self.current + 2] == '"' {
+                    self.advance() self.advance() self.advance()
+                    break
+                }
+            } ef self.peek() == quote {
+                self.advance()
+                break
+            }
+
+            if self.peek() == '\\' && !is_raw {
+                self.advance()
+                if !self.at_end() { self.advance() }
+            } else {
+                if self.peek() == '\n' { self.line += 1 self.col = 0 }
+                self.advance()
+            }
+        }
+
+        mut type = if is_interp { TOKEN_STRING_INTERP } else { TOKEN_VARDATA }
+        return Token::new(type, self.source.slice(self.start, self.current), self.line, sc)
+    }
+
+    // --- Main Entry Point ---
+
+    pub fn next_token(mut self) -> Token {
+        self.skip_trivia()
+        self.start = self.current
+        mut sc = self.col
+
+        if self.at_end() {
+            return Token::new(TOKEN_EOF, "", self.line, sc)
+        }
+
+        mut c = self.advance()
+
+        // Literals
+        if c == '\'' { return self.scan_char(sc) }
+        if c == '`'  { return self.scan_string_all('`', false, false, sc) }
+        if c == 'r' && self.peek() == '"' {
+            self.advance()
+            return self.scan_string_all('"', true, false, sc)
+        }
+        if c == '"'  { return self.scan_string_all('"', false, false, sc) }
+
+        // Identifiers & Numbers
+        if is_alpha(c) || c == '_' { return self.scan_identifier(sc) }
+        if is_digit(c) { return self.scan_number(sc) }
+
+        // Symbols
+        return match c {
+            '{' => Token::new(TOKEN_LBRACE, "{", self.line, sc),
+            '}' => Token::new(TOKEN_RBRACE, "}", self.line, sc),
+            '[' => Token::new(TOKEN_LBRACKET, "[", self.line, sc),
+            ']' => Token::new(TOKEN_RBRACKET, "]", self.line, sc),
+            '(' => Token::new(TOKEN_LPAREN, "(", self.line, sc),
+            ')' => Token::new(TOKEN_RPAREN, ")", self.line, sc),
+            ',' => Token::new(TOKEN_COMMA, ",", self.line, sc),
+            ';' => Token::new(TOKEN_SEMICOLON, ";", self.line, sc),
+            '.' => {
+                if self.peek() == '.' && self.peek_next() == '.' {
+                    self.advance() self.advance()
+                    return Token::new(TOKEN_DOT_DOT_DOT, "...", self.line, sc)
+                }
+                Token::new(TOKEN_DOT, ".", self.line, sc)
+            }
+            ':' => {
+                if self.match_char(':') { return Token::new(TOKEN_COLON_COLON, "::", self.line, sc) }
+                Token::new(TOKEN_COLON, ":", self.line, sc)
+            }
+            '=' => {
+                if self.match_char('>') { return Token::new(TOKEN_ARROW, "=>", self.line, sc) }
+                if self.match_char('=') { return Token::new(TOKEN_EQUAL_EQUAL, "==", self.line, sc) }
+                Token::new(TOKEN_EQUAL, "=", self.line, sc)
+            }
+            '&' => {
+                if self.match_char('&') { return Token::new(TOKEN_AND_AND, "&&", self.line, sc) }
+                if self.peek() == '"' { 
+                    self.advance() 
+                    return self.scan_string_all('"', false, true, sc) 
+                }
+                Token::new(TOKEN_AMP, "&", self.line, sc)
+            }
+            // Add other symbols (!, <, >, +, -, *, /) similarly...
+            _ => Token::new(TOKEN_ERROR, "Unexpected character", self.line, sc)
+        }
+    }
+}

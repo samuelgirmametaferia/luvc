@@ -1,0 +1,19 @@
+[Semantic Error at 4:10] Intrinsic not allowed in comptime evaluation.
+[Semantic Error at 1:10] Comptime evaluation failed.
+[Semantic Error at 4:10] Intrinsic not comptime-safe.
+[Semantic Error at 4:10] Expression is not compile-time.
+[Semantic Error at 4:10] Intrinsic 'print' is not allowed in comptime context.
+[Suggestion at 4:10] Fix-it: remove call from comptime block or provide a comptime-safe intrinsic.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Block (comptime: 1)
+    [2:5] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [3:5] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [3:9] Literal: 1
+    [4:10] ExprStmt
+      [4:10] Call
+        [4:5] Identifier: print
+        [4:11] Literal: "hello"
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

@@ -1,0 +1,8 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:1] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+  [2:1] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [2:5] Literal: 5
+
+[36mRunning Semantic Analysis...[0m
+[32mSemantic Analysis Successful![0m

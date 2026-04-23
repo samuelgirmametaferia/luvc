@@ -1,0 +1,26 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:1] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [1:5] Literal: 120
+  [2:1] VarDecl: b (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [2:9] Literal: 23
+  [4:3] ExprStmt
+    [4:3] Binary: +=
+      [4:1] Identifier: a
+      [4:6] Identifier: b
+  [6:1] ForIn: data
+    [6:13] Identifier: datas
+    [6:18] Block (comptime: 0)
+  [10:1] ForIn: i
+    [10:11] Range (inclusive: 0)
+      [10:10] Literal: 0
+      [10:13] Literal: 10
+    [10:15] Block (comptime: 0)
+  [13:1] ForIn: j
+    [13:11] Range (inclusive: 1)
+      [13:10] Literal: 0
+      [13:14] Literal: 10
+    [13:16] Block (comptime: 0)
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

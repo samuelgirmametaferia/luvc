@@ -1,0 +1,7 @@
+class Base {
+    final fn foo() { }
+}
+
+class Derived extends Base {
+    override fn foo() { }
+}

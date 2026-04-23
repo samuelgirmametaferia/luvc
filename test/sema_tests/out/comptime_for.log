@@ -1,0 +1,29 @@
+[Semantic Error at 4:17] Unsupported binary operands in comptime evaluation.
+[Semantic Error at 4:3] For condition must be compile-time boolean for evaluation.
+[Semantic Error at 1:10] Comptime evaluation failed.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:10] Block (comptime: 1)
+    [2:3] VarDecl: i (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [2:7] Literal: 0
+    [3:3] VarDecl: sum (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [3:9] Literal: 0
+    [4:3] For
+      [4:8] VarDecl: i (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        [4:12] Literal: 0
+      [4:17] Binary: <
+        [4:15] Identifier: i
+        [4:19] Literal: 3
+      [4:24] Binary: =
+        [4:22] Identifier: i
+        [4:28] Binary: +
+          [4:26] Identifier: i
+          [4:30] Literal: 1
+      [4:33] Block (comptime: 0)
+        [5:5] VarDecl: sum (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+          [5:15] Binary: +
+            [5:11] Identifier: sum
+            [5:17] Identifier: i
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

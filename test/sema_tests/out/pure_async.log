@@ -1,0 +1,12 @@
+[Semantic Error at 1:12] Pure function contains 'unsafe' block; declare as 'unsafe pure' to opt out.
+[Semantic Error at 1:12] Pure function must not perform mutation or moves.
+[Semantic Error at 1:12] Pure async functions cannot contain 'await'.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:12] Func: p (pub: 0, static: 0, virt: 0, over: 0)
+    [1:19] Block (comptime: 0)
+      [1:21] ExprStmt
+        [1:21] Node type 35
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

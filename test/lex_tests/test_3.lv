@@ -1,0 +1,15 @@
+a = 120
+mut b = 23
+
+a += b
+
+for data in datas{
+
+}
+
+for i in 0..10{
+
+}
+for j in 0...10{
+    
+}

@@ -1,0 +1,1 @@
+comptime async fn p() { }

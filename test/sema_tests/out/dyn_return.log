@@ -1,0 +1,16 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1550612544:32767] Func: f (pub: 0, static: 0, virt: 0, over: 0)
+    Returns:
+      [1:8] Identifier: dyn
+    [1:12] Block (comptime: 0)
+      [1:14] If
+        [1:17] Literal: true
+        [1:22] Block (comptime: 0)
+          [1:24] Return
+            [1:31] Literal: 1
+      [1:36] Return
+        [1:43] Literal: "hi"
+
+[36mRunning Semantic Analysis...[0m
+[32mSemantic Analysis Successful![0m

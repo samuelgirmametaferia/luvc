@@ -1,0 +1,118 @@
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [85:8] Module: MySuperLib
+  [87:1] Import
+    Path: Math::Constants
+  [88:1] Import
+    [88:7] Identifier: print
+    [88:14] Identifier: log
+    From:
+      [88:33] MemberAccess: IO
+        [88:25] Identifier: System
+  [89:1] Import
+    Path: Networking::Http
+    From:
+      [89:27] Literal: "https://lib.luv/http"
+  [94:1] Func: add (pub: 0, static: 0, virt: 0, over: 0)
+    [94:8] VarDecl: a (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [94:11] VarDecl: b (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    Returns:
+      [94:17] Identifier: i32
+    [94:21] Block (comptime: 0)
+      [95:5] Return
+        [95:14] Binary: +
+          [95:12] Identifier: a
+          [95:16] Identifier: b
+  [96:1] Func: multiply (pub: 0, static: 0, virt: 0, over: 0)
+    [99:10] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [99:13] VarDecl: y (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    Returns:
+      [99:19] Identifier: f64
+    [99:23] Block (comptime: 0)
+      [100:7] ExprStmt
+        [100:7] Binary: *
+          [100:5] Identifier: x
+          [100:9] Identifier: y
+  [101:1] Func: say_hello (pub: 0, static: 0, virt: 0, over: 0)
+    [104:13] Block (comptime: 0)
+      [105:10] ExprStmt
+        [105:10] Call
+          [105:5] Identifier: print
+          [105:11] Literal: "Hello!"
+  [106:1] Func: check_range (pub: 0, static: 0, virt: 0, over: 0)
+    [109:13] VarDecl: val (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+    [109:18] Block (comptime: 0)
+      [110:5] If
+        [110:24] Binary: &&
+          [110:13] Binary: in
+            [110:9] Identifier: val
+            [110:17] Range (inclusive: 1)
+              [110:16] Literal: 0
+              [110:20] Literal: 100
+          [110:31] Binary: !=
+            [110:27] Identifier: val
+            [110:34] Literal: 50
+        [110:38] Block (comptime: 0)
+          [111:9] Return
+            [111:16] Literal: true
+      Else
+        [112:7] If
+          [112:21] Binary: ||
+            [112:15] Binary: ==
+              [112:11] Identifier: val
+              [112:18] Literal: 50
+            [112:24] Unary: !
+              [112:25] Literal: true
+          [112:31] Block (comptime: 0)
+            [113:9] Return
+              [113:16] Literal: false
+        Else
+          [114:12] Block (comptime: 0)
+            [115:9] Return
+              [115:16] Literal: false
+  [117:1] Func: main (pub: 0, static: 0, virt: 0, over: 0)
+    [120:8] Block (comptime: 0)
+      [121:5] VarDecl: result (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [121:38] Binary: *
+          [121:35] MemberAccess: PI
+            [121:24] MemberAccess: Constants
+              [121:18] Identifier: Math
+          [121:40] Literal: 2.0
+      [125:14] ExprStmt
+        [125:14] Call
+          [125:5] Identifier: say_hello
+      [127:5] VarDecl: list (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+        [127:16] ListLiteral
+          [127:17] Literal: 1
+          [127:20] Literal: 2
+          [127:23] Literal: 3
+      [130:5] Match
+        [130:11] Identifier: status
+        [131:9] MatchArm
+          [131:9] Literal: "ok"
+          [131:20] Literal: 1
+        [132:9] MatchArm
+          [132:9] Literal: "error"
+          [132:20] Literal: 0
+        [133:9] MatchArm
+          [133:9] Identifier: _
+          [133:20] Unary: -
+            [133:21] Literal: 1
+  [138:1] VarDecl: name (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [138:12] Literal: "Gemini"
+  [139:1] VarDecl: greeting (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [139:17] Literal: &"Hello, {name}! Your score is {10 + 5}."
+  [141:1] VarDecl: docs (mut: 1, static: 0, comptime: 0, extern: 0, export: 0)
+    [143:12] Literal: """
+This is a multi-line docstring
+spanning multiple lines.
+"""
+  [146:16] ExprStmt
+    [146:16] Call
+      [146:13] MemberAccess: log
+        [146:9] MemberAccess: IO
+          [146:1] Identifier: System
+      [146:17] Literal: "Test complete."
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m

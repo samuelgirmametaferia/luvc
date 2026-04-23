@@ -1,0 +1,11 @@
+[Semantic Error at 1:18] Pure function must not perform mutation or moves. Consider marking the function 'unsafe pure' to opt out or move side-effects out.
+[33mAST Structure:[0m
+[1:1] Block (comptime: 0)
+  [1:6] Func: p (pub: 0, static: 0, virt: 0, over: 0)
+    [1:13] Block (comptime: 0)
+      [1:15] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+      [1:18] VarDecl: x (mut: 0, static: 0, comptime: 0, extern: 0, export: 0)
+        [1:22] Literal: 2
+
+[36mRunning Semantic Analysis...[0m
+[31mSemantic Analysis Failed.[0m
